@@ -488,7 +488,7 @@ POS tags are often used as a feature in text datasets. For tasks such as languag
 
 Generating POS tags is very simple with NLTK--all we need to do is pass in a tokenized version of our corpus and NLTK will return a list of tuples containing the token and it's part of speech.
 
-Note that the abbreviations NLTK uses for their POS tags come from the Penn Tree Bank, and won't be immediately recognizable to you. To understand what these tags stand for, take a look at this [reference list](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html)
+Note that the abbreviations NLTK uses for their POS tags come from the Penn Tree Bank, and won't be immediately recognizable to you. To understand what these tags stand for, take a look at this [reference list].(https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html)
 
 Let's end this lab by quickly generating some POS tags!
 
