@@ -1,5 +1,5 @@
 
-# Context-Free Grammars - Lab
+# Context-Free Grammars - Codealong
 
 ## Introduction
 
@@ -91,7 +91,7 @@ for tree in parser.parse(sent):
       (VP
         (V shot)
         (NP (Det an) (N elephant) (PP (P in) (NP (Det my) (N pajamas))))))
-    
+
 
 Great! Now that we have a working example, let's create own own, to parse the first sentence from the Usain Bolt example!
 
@@ -470,7 +470,7 @@ for tree in parser.parse(tokenized_sent):
           (V broke)
           (NP (Det the) (N ) (PP (P ) (NP (Adj 100m) (NP (N record))))))
         (PP (P ) (NP (N )))))
-    
+
 
 It worked! But why are there so many trees? Because as our rules stand, there are multiple valid interpretations of the sentence.  This is because we have some empty things like `PP -> P NP` that don't currently have rules, so they're triggering as false positives. 
 
@@ -513,6 +513,6 @@ nltk.pos_tag(tokenized_sent)
 That's all it takes to generate POS tags using NLTK. Great job!
 
 
-# Summary
+## Summary
 
 In this lab, we wrote our own Context-Free Grammar to create parse trees of sentences. We also learned how to quickly generate POS tags for text using NLTK and the Penn Tree Bank!
