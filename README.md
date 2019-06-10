@@ -16,7 +16,7 @@ You will be able to:
 
 ### Creating A Context-Free Grammar
 
-The first thing we'll do in this lab is create our own CFG and use it to parse a sentence. The goal of is to help us better understand the **_recursive_** nature of Context-Free Grammars. By definition, these grammars have to be recursive, because valid sentences can contain other smaller, valid sentences. Consider the following example, pulled from the NLTK book's chapter on Analyzing Sentence Structure. We've highlighted the top-level Verb Phrase in each sentence. 
+The first thing we'll do in this lab is create our own CFG and use it to parse a sentence. The goal of this is to help us better understand the **_recursive_** nature of Context-Free Grammars. By definition, these grammars have to be recursive, because valid sentences can contain other smaller, valid sentences. Consider the following example, pulled from the NLTK book's chapter on Analyzing Sentence Structure. We've highlighted the top-level Verb Phrase in each sentence. 
 
 a.		Usain Bolt **broke the 100m record**
 
@@ -91,7 +91,7 @@ for tree in parser.parse(sent):
       (VP
         (V shot)
         (NP (Det an) (N elephant) (PP (P in) (NP (Det my) (N pajamas))))))
-
+    
 
 Great! Now that we have a working example, let's create own own, to parse the first sentence from the Usain Bolt example!
 
@@ -180,18 +180,18 @@ This means that the structure of our sentence can be mapped as:
                                              
 So how do we go from this tree, to modifying the grammar rules? We just check to make sure that each sub-tree that stems from an NP or a VP can be constructed given the rules listed in the grammar for each. 
 
-Lets start from the beginning. We see that our Noun Phrase consists only of a Noun (N). This means that we've found the first problem--we haven't defined a rule in the NP section of our grammar that says that's allowed! 
+Let's start from the beginning. We see that our Noun Phrase consists only of a Noun (N). This means that we've found the first problem--we haven't defined a rule in the NP section of our grammar that says that's allowed! 
 
-This means that we need to change our grammar's NP line from `NP -> NP -> Det N | Det N PP ` to `NP -> Det N | Det N PP | N `, thereby providing a rule that say that single nouns (N) are allowed to act as a valid noun phrase. 
+This means that we need to change our grammar's NP line from `NP -> NP -> Det N | Det N PP ` to `NP -> Det N | Det N PP | N `, thereby providing a rule that says that single nouns (N) are allowed to act as a valid noun phrase. 
 
-Moving onto our Verb Phrase, we see that our Verb Phrase consists of a Verb and a Noun Phrase. If we look at the first rule for Verb Phrases, `VP -> V NP`, we can see that this is already explicitly covered. Since the verb portion of phrase is fine, this means the error lies in the NP portion of our VP. We can see that the the structure of this NP is `Det Adj N`, which our NP rules do not currently allow for. 
+Moving onto our Verb Phrase, we see that our Verb Phrase consists of a Verb and a Noun Phrase. If we look at the first rule for Verb Phrases, `VP -> V NP`, we can see that this is already explicitly covered. Since the verb portion of phrase is fine, this means the error lies in the NP portion of our VP. We can see that the structure of this NP is `Det Adj N`, which our NP rules do not currently allow for. 
 
-We can fix this by modifying our NP phrase in a few ways. We can modify it by simplying adding `Det Adj N` as a case for our NP rules, and not use any recursion. This is a valid way to fix it, but with large grammars, the number of rules we write will go through the roof, since we're treating each possible combination as a special case. 
+We can fix this by modifying our NP phrase in a few ways. We can modify it by simply adding `Det Adj N` as a case for our NP rules, and not use any recursion. This is a valid way to fix it, but with large grammars, the number of rules we write will go through the roof, since we're treating each possible combination as a special case. 
 
 We can also use recursion to fix this.  Let's define what we need to add to get this working:
 
 * Noun Phrases (NP) need to be able to consist of `Det` followed by a Noun Phrase `NP`. 
-* Noun Phrases need to be able to consist of `Adj` followed by a `N`.
+* Noun Phrases need to be able to consist of `Adj` followed by an `N`.
 
 This is where we can get a bit clever. To solve the first bullet point, we need to add a rule that says that a Noun Phrase (NP) can be a Det followed by a Noun Phrase, NP--`Det NP` will work to solve this.  Note that if we add this line in, the first rule that explicitly spells out `Det N` becomes redundant. Since our recursive structure will catch these sorts of cases, we no longer need to explicitly spell it out. This means we can remove it to increase our performance a little bit. 
 
@@ -470,7 +470,7 @@ for tree in parser.parse(tokenized_sent):
           (V broke)
           (NP (Det the) (N ) (PP (P ) (NP (Adj 100m) (NP (N record))))))
         (PP (P ) (NP (N )))))
-
+    
 
 It worked! But why are there so many trees? Because as our rules stand, there are multiple valid interpretations of the sentence.  This is because we have some empty things like `PP -> P NP` that don't currently have rules, so they're triggering as false positives. 
 
@@ -480,7 +480,7 @@ Now that we have a feel for how POS tags work and how they can be used with CFGs
 
 #### The Penn Tree Bank
 
-Do far, we've been manually labeling our words to consruct our CFGs. However, this strategy obviously doesn't scale well to the real world--it would take way too long to label every possible word with a part of speech, and generate every rule possible for a CFG. Luckily, the linguists and programmers have provided a quick and easy way to have this done for us, thanks to the **_Pen Tree Bank_**! The [Penn Tree Bank](https://catalog.ldc.upenn.edu/docs/LDC95T7/cl93.html) is "a large annotated corpus of English", according the researchers at Penn that created it. This means that it already has a ton of well-labled examples for POS tagging. For us, this means that we can easily use NLTK to generate POS tags for our corpora, without having to worry about hand labeling or generating parse trees. 
+Do far, we've been manually labeling our words to construct our CFGs. However, this strategy obviously doesn't scale well to the real world--it would take way too long to label every possible word with a part of speech, and generate every rule possible for a CFG. Luckily, the linguists and programmers have provided a quick and easy way to have this done for us, thanks to the **_Penn Tree Bank_**! The [Penn Tree Bank](https://catalog.ldc.upenn.edu/docs/LDC95T7/cl93.html) is "a large annotated corpus of English", according to the researchers at Penn that created it. This means that it already has a ton of well-labeled examples for POS tagging. For us, this means that we can easily use NLTK to generate POS tags for our corpora, without having to worry about hand labeling or generating parse trees. 
 
 #### Generating and Using POS Tags
 
