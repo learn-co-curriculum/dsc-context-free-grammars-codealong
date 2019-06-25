@@ -32,7 +32,7 @@ In the examples above, each sentence is easily recognizable as being grammatical
 
 To really drive this point home about sentences being made up of recursive units of words, take a look at the following diagram (also from the NLTK ch. 8 provided above):
 
-<img src='cfg_diagram.png'>
+<img src='images/cfg_diagram.png'>
 
 This diagram shows the various valid combinations words from the sentences "He ran" and "The little bear saw the fine fat trout in the brook". As we can see from the diagram, as long as we're switching out grammatical units that are the same type (e.g. a Noun Phrase for a Noun Phrase), the result is a completely valid sentence--both "the little bear saw the fine fat trout in the brook" and "he saw the fine fat trout in the brook" are grammatically correct. This means that we don't actually need to care what the actual words are--just their grammatical part of speech! 
 
@@ -91,7 +91,7 @@ for tree in parser.parse(sent):
       (VP
         (V shot)
         (NP (Det an) (N elephant) (PP (P in) (NP (Det my) (N pajamas))))))
-    
+
 
 Great! Now that we have a working example, let's create own own, to parse the first sentence from the Usain Bolt example!
 
@@ -470,7 +470,7 @@ for tree in parser.parse(tokenized_sent):
           (V broke)
           (NP (Det the) (N ) (PP (P ) (NP (Adj 100m) (NP (N record))))))
         (PP (P ) (NP (N )))))
-    
+
 
 It worked! But why are there so many trees? Because as our rules stand, there are multiple valid interpretations of the sentence.  This is because we have some empty things like `PP -> P NP` that don't currently have rules, so they're triggering as false positives. 
 
