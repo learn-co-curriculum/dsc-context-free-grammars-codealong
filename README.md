@@ -1,4 +1,3 @@
-
 # Context-Free Grammars - Codealong
 
 ## Introduction
@@ -42,6 +41,7 @@ NLTK makes it extremely easy to generate a CFG by providing a helper function. H
 
 ```python
 import nltk
+nltk.download('punkt', quiet=True);
 ```
 
 
